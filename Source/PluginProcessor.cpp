@@ -205,7 +205,7 @@ void AtmosfearAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffe
     parameters.processRealtimeEvents();
 
     Parameter *filesAdded = parameters.get("Files Added");
-    if (filesAdded->getValue()) {
+    if (filesAdded->getValue() && fileWatcherThread.voiceBufferIsReady()) {
         voiceController->filesAdded(fileWatcherThread.getVoiceBuffers());
         parameters.set(filesAdded, false);
     }

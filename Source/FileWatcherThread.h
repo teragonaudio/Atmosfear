@@ -21,7 +21,7 @@ public:
 
     virtual void run();
     std::vector<AudioSampleBuffer> *getVoiceBuffers() { return voiceBuffers; }
-
+    bool voiceBufferIsReady();
 private:
     bool scanDataDirectory(size_t voiceNumber);
     bool readDataFile(AudioSampleBuffer *buffer, File file);
@@ -29,6 +29,7 @@ private:
 private:
     std::vector<String> loadedSampleNames[kMaxVoiceCount];
     std::vector<AudioSampleBuffer> voiceBuffers[kMaxVoiceCount];
+    bool voiceBufferReady[kMaxVoiceCount];
     teragon::ConcurrentParameterSet &parameters;
 };
 

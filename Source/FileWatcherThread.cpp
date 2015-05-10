@@ -15,6 +15,9 @@ FileWatcherThread::FileWatcherThread(teragon::ConcurrentParameterSet &p) :
         Thread("FileWatcher"),
         parameters(p)
 {
+    for (int i = 0; i < kMaxVoiceCount; i++) {
+        voiceBufferReady[i] = false;
+    }
 }
 
 void FileWatcherThread::run() {
@@ -37,8 +40,23 @@ void FileWatcherThread::run() {
     }
 }
 
+bool FileWatcherThread::voiceBufferIsReady() {
+    bool ready = true;
+
+    for (int i = 0; i < kMaxVoiceCount ; i++) {
+        if (voiceBufferReady[i] == false) {
+            ready = false;
+            break;
+        }
+    }
+
+    return ready;
+}
+
 bool FileWatcherThread::scanDataDirectory(size_t voiceNumber) {
     File directory(kDatabasePath + kDirPrefix + (char)((int) '0' + voiceNumber));
+
+    voiceBufferReady[voiceNumber] = false;
 
     if (!directory.exists()) {
         // printf("Creating subdirectory %ld\n", voiceNumber);
@@ -68,6 +86,8 @@ bool FileWatcherThread::scanDataDirectory(size_t voiceNumber) {
                 filesFound = true;
             }
         }
+
+        voiceBufferReady[voiceNumber] = true;
 
         return filesFound;
     }
