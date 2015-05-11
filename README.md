@@ -4,7 +4,9 @@ Atmosfear
 Atmosfear was a project for [MidiHack 2015][midihack], written by [Daniel
 Swärd][daniel], [Rickard Lindroth][rickard], and [Nik Reiman][nik]. It is a VSTi
 plugin which generates random atmospheric soundscapes with samples scraped from
-FreeSound.
+FreeSound. We had originally imagined that the plugin colud generate soundscapes
+resembling parks, public places, nature, etc. However, the resulting sounds that it
+makes are generally quite surreal and creepy, hence the name. :)
 
 The plugin right now is a bit proof-of-concept, since the whole thing was written in
 less than 24 hours and doesn't have a GUI. But if you really want to try it out,
